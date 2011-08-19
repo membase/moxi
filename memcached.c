@@ -4742,17 +4742,14 @@ int main (int argc, char **argv) {
             break;
         case 'O' :
 #ifndef MAIN_CHECK
-            if (!optarg) {
-                fprintf(stderr, "Log File path not provided, resorting to syslog");
+            if (optarg[0] == '\0' ||
+                strcmp(optarg, "stderr") == 0) {
+                log_mode = ERRORLOG_STDERR;
+            } else if (strcmp(optarg, "syslog") == 0) {
+                log_mode = ERRORLOG_SYSLOG;
             } else {
-                if (optarg[0] == '\0' ||
-                    strcmp(optarg, "stderr") == 0) {
-                    log_mode = ERRORLOG_STDERR;
-                } else {
-                    log_mode = ERRORLOG_FILE;
-                    log_file = strdup(optarg);
-                }
-                break;
+                log_mode = ERRORLOG_FILE;
+                log_file = strdup(optarg);
             }
 #endif
             break;
