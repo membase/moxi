@@ -215,8 +215,8 @@ mcs_st *lvb_create(mcs_st *ptr, const char *config,
             }
         }
     } else {
-        moxi_log_write("mcs_create failed, vbucket_config_parse_string: %s\n",
-                       config);
+        moxi_log_write("mcs_create failed to parse vbucket config: %s\n",
+                       vbucket_get_error());
     }
 
     mcs_free(ptr);
